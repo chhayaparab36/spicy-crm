@@ -1,0 +1,25 @@
+name: Extract ZIP File
+
+on:
+  push:
+    paths:
+      - 'spicy-crm/spicy-crm.zip'  # Optional, adjust the path of the zip file
+
+jobs:
+  extract_zip:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v2
+
+      - name: Install unzip
+        run: sudo apt-get install unzip
+
+      - name: Extract the ZIP file
+        run: unzip spicy-crm/spicy-crm.zip -d spicy-crm
+
+      - name: Commit extracted files
+        run: |
+          git add .
+          git commit -m "Extracted ZIP file"
+          git push
